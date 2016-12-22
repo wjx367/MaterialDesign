@@ -15,17 +15,19 @@ import java.util.List;
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.ViewHolder> {
     private List<String> mDataSet = null;
     private OnItemClickListener mListener;
+
     public RecycleViewAdapter(List<String> mDataSet) {
-        this.mDataSet=mDataSet;
+        this.mDataSet = mDataSet;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        final  View  itemview= LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview,parent,false);
+        final View itemview;
+        itemview = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview, parent, false);
         itemview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mListener!=null) {
+                if (mListener != null) {
                     mListener.onItemClick(v, (String) itemview.getTag());
                 }
             }
@@ -33,9 +35,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         itemview.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                switch(event.getAction()){
+                switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        v.setTranslationZ(120);
+                        v.setTranslationZ(0);
                         break;
                     case MotionEvent.ACTION_UP:
                         v.setTranslationZ(0);
@@ -62,24 +64,25 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         return mDataSet.size();
     }
 
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mListener = listener;
+    }
+
+    public interface OnItemClickListener {
+        public void onItemClick(View view, String data);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tv;
+
         public ViewHolder(View itemView) {
             super(itemView);
-            tv= (TextView) itemView.findViewById(R.id.tv);
+            tv = (TextView) itemView.findViewById(R.id.tv);
         }
-        public void bindData(String s)
-        {
-            if(s != null)
+
+        public void bindData(String s) {
+            if (s != null)
                 tv.setText(s);
         }
-    }
-    public interface OnItemClickListener
-    {
-        public void onItemClick(View view,String data);
-    }
-    public void setOnItemClickListener(OnItemClickListener listener)
-    {
-        this.mListener = listener;
     }
 }

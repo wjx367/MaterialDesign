@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardview"
-    app:cardCornerRadius="8dp"
-    android:background="@drawable/ripple_bg"
-    app:cardBackgroundColor="#8cedd0"
-    app:cardElevation="0dp"
-    android:layout_margin="8dp"
-    android:layout_height="80dp"
     android:layout_width="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_main"
-    tools:context="com.viewwang.materialdesign.MainActivity"
+    android:layout_height="100dp"
+    android:layout_margin="8dp"
+    android:background="@drawable/ripple_bg"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    >
+    app:cardBackgroundColor="#F4f4f4f4"
+    app:cardCornerRadius="3dp"
+    app:cardElevation="3dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="8dp">
     <TextView
         android:id="@+id/tv"
-        android:text="TextView in CardView"
-        android:layout_gravity="center"
-        android:textSize="26sp"
-        android:textColor="#FFFFFF"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="TextView in CardView"
+        android:textColor="#060505"
+        android:textSize="15sp" />
+</LinearLayout>
 
 </android.support.v7.widget.CardView>
 
