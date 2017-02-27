@@ -47,11 +47,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
-                <!--哔哩哔哩开源的弹幕控件-->
-                <master.flame.danmaku.ui.widget.DanmakuView
-                    android:id="@+id/danmaku"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                <!--&lt;!&ndash;哔哩哔哩开源的弹幕控件&ndash;&gt;-->
+                <!--<master.flame.danmaku.ui.widget.DanmakuView-->
+                    <!--android:id="@+id/danmaku"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent" />-->
             </FrameLayout>
 
             <android.support.v7.widget.Toolbar

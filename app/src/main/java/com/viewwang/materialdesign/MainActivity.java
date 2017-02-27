@@ -117,7 +117,7 @@ public class MainActivity extends Activity implements AppBarLayout.OnOffsetChang
             @Override
             public void onClick(View v) {
 //                floatView.addToWindow();
-                Intent intent =new Intent(MainActivity.this,PlayActivity.class);
+                Intent intent =new Intent(MainActivity.this,Main2Activity.class);
                 startActivity(intent);
             }
         });
