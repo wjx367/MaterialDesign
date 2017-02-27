@@ -5,12 +5,17 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 
 public class Main2Activity extends AppCompatActivity {
 
 
-    private TabLayout mTabLayout;
-    private ViewPager mViewPager;
+    @Bind(R.id.id_tablayout)
+    TabLayout idTablayout;
+    @Bind(R.id.id_viewpager)
+    ViewPager idViewpager;
     private int mTabCount = 4;
     private MainFragmentPagerAdapter fragmentPagerAdapter;
 
@@ -18,10 +23,9 @@ public class Main2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        mTabLayout = (TabLayout) findViewById(R.id.id_tablayout);
-        mViewPager = (ViewPager) findViewById(R.id.id_viewpager);
+        ButterKnife.bind(this);
         fragmentPagerAdapter = new MainFragmentPagerAdapter(getSupportFragmentManager(), mTabCount);
-        mViewPager.setAdapter(fragmentPagerAdapter);
-        mTabLayout.setupWithViewPager(mViewPager);
+        idViewpager.setAdapter(fragmentPagerAdapter);
+        idTablayout.setupWithViewPager(idViewpager);
     }
 }

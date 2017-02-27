@@ -24,7 +24,7 @@
         <activity android:name=".PlayActivity"
             android:theme="@style/Theme.AppCompat"/>
         <activity android:name=".Main2Activity"
-            android:theme="@style/Theme.AppCompat"
+            android:theme="@style/Theme.Design.Light.NoActionBar"
 
             />
     </application>

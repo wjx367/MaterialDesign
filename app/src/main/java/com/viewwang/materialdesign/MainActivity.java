@@ -25,22 +25,35 @@ import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationItem;
 import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView;
 import com.luseen.luseenbottomnavigation.BottomNavigation.OnBottomNavigationItemClickListener;
 
-public class MainActivity extends Activity implements AppBarLayout.OnOffsetChangedListener,DefaultHardwareBackBtnHandler{
-    public RecyclerView mRecyclerView;
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+import static com.viewwang.materialdesign.R.id.mRecyclerView;
+
+public class MainActivity extends Activity implements AppBarLayout.OnOffsetChangedListener, DefaultHardwareBackBtnHandler {
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+    @Bind(R.id.collapsing_toolbar)
+    CollapsingToolbarLayout collapsingToolbar;
+    @Bind(R.id.appBarLayout)
+    AppBarLayout appBarLayout;
+    @Bind(R.id.recycle)
+    RecyclerView recycle;
+    @Bind(R.id.bottomNavigation)
+    BottomNavigationView bottomNavigation;
+    @Bind(R.id.fab)
+    FloatingActionButton fab;
+    @Bind(R.id.swipe_refresh)
+    SwipeRefreshLayout swipeRefresh;
     private RecycleViewAdapter mAdapter;
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private CollapsingToolbarLayout collapsingToolbarLayout;
-    private Toolbar toolbar;
-    private FloatingActionButton fab;
-    private AppBarLayout appBarLayout;
-    private FloatView floatView;
     private ReactRootView mReactRootView;
     private ReactInstanceManager mReactInstanceManager;
-
+    private FloatView floatView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 //        mReactRootView = new ReactRootView(this);
 //        mReactInstanceManager = ReactInstanceManager.builder()
 //                .setApplication(getApplication())
@@ -55,30 +68,24 @@ public class MainActivity extends Activity implements AppBarLayout.OnOffsetChang
     }
 
     private void initView() {
-        swipeRefreshLayout= (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
-        collapsingToolbarLayout =(CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        appBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("文章");
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycle);
-        LinearLayoutManager linearLayoutManager= new LinearLayoutManager(this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(linearLayoutManager);
+        recycle.setLayoutManager(linearLayoutManager);
         mAdapter = new RecycleViewAdapter(DataSource.generateData(20));
 //        collapsingToolbarLayout.setTitle("Title");
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setAdapter(mAdapter);
+        recycle.setHasFixedSize(true);
+        recycle.setAdapter(mAdapter);
 
-        fab = (FloatingActionButton) findViewById(R.id.fab);
 
-        swipeRefreshLayout.setColorSchemeResources(R.color.green,R.color.orange,R.color.blue);
-            initBottomNavigationView();
+        swipeRefresh.setColorSchemeResources(R.color.green, R.color.orange, R.color.blue);
+        initBottomNavigationView();
 
         initListener();
     }
 
     private void initListener() {
-        mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
+        recycle.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_MOVE) {
@@ -117,16 +124,16 @@ public class MainActivity extends Activity implements AppBarLayout.OnOffsetChang
             @Override
             public void onClick(View v) {
 //                floatView.addToWindow();
-                Intent intent =new Intent(MainActivity.this,Main2Activity.class);
+                Intent intent = new Intent(MainActivity.this, Main2Activity.class);
                 startActivity(intent);
             }
         });
 
-        floatView=new FloatView(this,0,0,R.layout.floatview_layotu);
+        floatView = new FloatView(this, 0, 0, R.layout.floatview_layotu);
         floatView.setFloatViewClickListener(new FloatView.IFloatViewClick() {
             @Override
             public void onFloatViewClick() {
-                Toast.makeText(MainActivity.this,"floatview is clicked",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "floatview is clicked", Toast.LENGTH_SHORT).show();
             }
         });
         floatView.setOnHoverListener(new View.OnHoverListener() {
@@ -147,7 +154,7 @@ public class MainActivity extends Activity implements AppBarLayout.OnOffsetChang
         });
 
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 refreshContent();
@@ -155,18 +162,18 @@ public class MainActivity extends Activity implements AppBarLayout.OnOffsetChang
 
         });
 
-        swipeRefreshLayout.post(new Runnable() {
+        swipeRefresh.post(new Runnable() {
 
             @Override
             public void run() {
-                swipeRefreshLayout.setRefreshing(true);
+                swipeRefresh.setRefreshing(true);
             }
         });
         loadData();
     }
 
     private void loadData() {
-        new Thread(){
+        new Thread() {
             @Override
             public void run() {
                 super.run();
@@ -176,8 +183,8 @@ public class MainActivity extends Activity implements AppBarLayout.OnOffsetChang
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            mRecyclerView.setAdapter(mAdapter);
-                            swipeRefreshLayout.setRefreshing(false);
+                            recycle.setAdapter(mAdapter);
+                            swipeRefresh.setRefreshing(false);
                         }
                     });
                 } catch (InterruptedException e) {
@@ -201,7 +208,7 @@ public class MainActivity extends Activity implements AppBarLayout.OnOffsetChang
         bottomNavigationView.setOnBottomNavigationItemClickListener(new OnBottomNavigationItemClickListener() {
             @Override
             public void onNavigationItemClick(int index) {
-                Toast.makeText(MainActivity.this, "Item " +index +" clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Item " + index + " clicked", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -230,17 +237,17 @@ public class MainActivity extends Activity implements AppBarLayout.OnOffsetChang
 
     private void refreshContent() {
         mAdapter = new RecycleViewAdapter(DataSource.generateData(20));
-        mRecyclerView.setAdapter(mAdapter);
-        swipeRefreshLayout.setRefreshing(false);
+        recycle.setAdapter(mAdapter);
+        swipeRefresh.setRefreshing(false);
     }
 
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-        if(verticalOffset==0){
-            swipeRefreshLayout.setEnabled(true);
-        }else {
-            swipeRefreshLayout.setEnabled(false);
+        if (verticalOffset == 0) {
+            swipeRefresh.setEnabled(true);
+        } else {
+            swipeRefresh.setEnabled(false);
         }
     }
 
