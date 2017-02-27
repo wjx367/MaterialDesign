@@ -32,7 +32,7 @@
                 app:statusBarScrim="@color/blue"
                 app:expandedTitleMarginEnd="64dp"
                 app:expandedTitleMarginStart="48dp"
-                app:layout_scrollFlags="scroll|snap">
+                app:layout_scrollFlags="scroll">
 
                 <ImageView
                     android:layout_width="wrap_content"
